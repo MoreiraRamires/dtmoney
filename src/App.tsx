@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import {GlobalStyle} from '../src/styles/global'
+import { Dashboard } from './components/Dashboard';
+import { Header } from './components/Header';
+import { NewTransactionModal } from './components/NewTransacationModal';
+import Modal from 'react-modal';
 
-function App() {
+// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement('#root')
+
+export function App() {
+  const [isNewTransactionModalOpen, setIsTransactionModalOpen] = useState(false);
+
+   function handleOpenNewTransactionModal() {
+    setIsTransactionModalOpen(true);
+  }
+
+  function handleCloseNewTransactionModal(){
+    setIsTransactionModalOpen(false);
+  }
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal}/>
+      <Dashboard/>
+      <NewTransactionModal
+        isOpen={isNewTransactionModalOpen} 
+        onRequestClose={handleCloseNewTransactionModal}
+       />
+
+      <GlobalStyle/>
+    </>
   );
 }
 
-export default App;
+export default App
+
+// use o export ao inves de export default por dois motivos - Chappter 2 - Estrutura de Aplicacao - aula 02
+// Segurança , evita erros durante a nomeacao
