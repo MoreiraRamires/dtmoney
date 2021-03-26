@@ -4,6 +4,7 @@ import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
 import { NewTransactionModal } from './components/NewTransacationModal';
 import Modal from 'react-modal';
+import {  TransactionsProvider } from './TransactionsContext';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root')
@@ -21,7 +22,7 @@ export function App() {
 
   
   return (
-    <>
+    <TransactionsProvider >
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal}/>
       <Dashboard/>
       <NewTransactionModal
@@ -30,7 +31,7 @@ export function App() {
        />
 
       <GlobalStyle/>
-    </>
+    </TransactionsProvider>
   );
 }
 
